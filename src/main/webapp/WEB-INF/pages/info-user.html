@@ -1,0 +1,38 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add user</title>
+</head>
+<body>
+
+<form th:method="POST" th:action="@{saveUser}" th:object="${user}">
+
+    <!--input нужен для передачи ID в метод saveUser, скрыт-->
+    <input hidden name="id" th:field="*{id}" id = "id"/>
+
+    <label for="name">Имя</label>
+    <input name="name" th:field="*{name}" id = "name"/>
+    <br/>
+    <label for="surname">Фамилия</label>
+    <input name="surname" th:field="*{surname}" id = "surname"/>
+    <br/>
+    <label for="department">Отдел</label>
+    <input name="department" th:field="*{department}" id = "department"/>
+    <br/>
+    <label for="salary">ЗП</label>
+    <input name="salary" th:field="*{salary}" id = "salary"/>
+    <br/>
+    <br/>
+
+    <!-- Смена имени кнопки, в зависимости от функционала -->
+    <div th:if="${user.name}">
+        <input type="submit" value="Изменить">
+    </div>
+    <div th:unless="${user.name}">
+        <input type="submit" value="Добавить">
+    </div>
+
+</form>
+
+</body>
+</html>
