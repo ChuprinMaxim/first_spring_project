@@ -14,12 +14,9 @@ public class UserDaoImp implements UserDao {
 
     @Override
     public List<User> getAllUsers() {
-        List<User> allUsers = entityManager.createQuery("from User", User.class).getResultList();
+        return entityManager.createQuery("select user from User user", User.class).getResultList();
+}
 
-        return allUsers;
-    }
-
-    //данный метод и сохраняет и изменяет объекты. У нового объекта id = 0, тогда persist, иначе merge (с присвоением текущего id)
     @Override
     public void saveUser(User user) {
         if (user.getId() == 0) {
@@ -32,9 +29,7 @@ public class UserDaoImp implements UserDao {
 
     @Override
     public User getUser(int id) {
-        User userById = entityManager.find(User.class, id);
-
-        return userById;
+        return entityManager.find(User.class, id);
     }
 
     @Override

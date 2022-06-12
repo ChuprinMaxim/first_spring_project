@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import web.model.User;
 import web.service.UserService;
 
-import java.util.List;
-
 @Controller
 public class AppController {
     @Autowired
@@ -18,16 +16,14 @@ public class AppController {
 
     @RequestMapping("/")
     public String showAllUsers(Model model) {
-        List<User> allUsers = userService.getAllUsers();
-        model.addAttribute("allUsers", allUsers);
+        model.addAttribute("allUsers", userService.getAllUsers());
 
         return "all-users";
     }
 
     @RequestMapping("/addNewUser")
     public String addNewUser(Model model) {
-        User user = new User();
-        model.addAttribute("user", user);
+        model.addAttribute("user", new User());
 
         return "info-user";
     }
@@ -41,8 +37,7 @@ public class AppController {
 
     @RequestMapping("/updateUser")
     public String updateUser(@RequestParam("updateUser") int id, Model model) {
-        User userById = userService.getUser(id);
-        model.addAttribute("user", userById);
+        model.addAttribute("user", userService.getUser(id));
 
         return "info-user";
     }
