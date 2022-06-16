@@ -11,8 +11,12 @@ import web.service.UserService;
 
 @Controller
 public class AppController {
+
+    private final UserService userService;
     @Autowired
-    private UserService userService;
+    public AppController(UserService userService) {
+        this.userService = userService;
+    }
 
     @RequestMapping("/")
     public String showAllUsers(Model model) {

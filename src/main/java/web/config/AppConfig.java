@@ -24,8 +24,11 @@ import java.util.Properties;
 @ComponentScan(value = "web")
 public class AppConfig {
 
+    private final Environment env;
     @Autowired
-    private Environment env;
+    public AppConfig(Environment env) {
+        this.env = env;
+    }
 
     @Bean
     public DataSource getDataSource() {
@@ -45,7 +48,7 @@ public class AppConfig {
         em.setPackagesToScan("web/model");
 
         Properties properties = new Properties();
-        properties.setProperty("hibernate.hbm2ddl.auto", "none");
+        properties.setProperty("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
         properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
 
         JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
